@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "necromancybuyhelper",
+    "name": "NecromancyBuyHelper",
+    "description": "A mod that helps you to identify the quality of necromancy-souls",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      ""
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
