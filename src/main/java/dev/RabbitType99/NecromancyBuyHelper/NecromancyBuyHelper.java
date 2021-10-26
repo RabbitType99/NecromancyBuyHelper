@@ -27,16 +27,18 @@ public class NecromancyBuyHelper {
         ItemStack item = event.itemStack;
 
         if (Arrays.stream(checkForSouls(item,true)).anyMatch(val -> val)) {
-
-
+            Boolean[] souls = checkForSouls(item,false);
 
 
             for (int i = 0; i < event.toolTip.size(); i++){
                if (event.toolTip.get(i).contains("Absorbed Souls:")){
                    for (int j = 0; j < totalSouls; j++){
-                       String lineToReplace = event.toolTip.get(i+1+j);
-                       event.toolTip.remove(i+1+j);
-                       event.toolTip.add(i+1+j,lineToReplace + " - §r§5§3MASTERMODE SOUL");
+                       if (souls[j]){
+                           String lineToReplace = event.toolTip.get(i+1+j);
+                           event.toolTip.remove(i+1+j);
+                           event.toolTip.add(i+1+j,lineToReplace + " - §r§5§3MASTERMODE SOUL");
+                       }
+
                    }
                    break;
                }
