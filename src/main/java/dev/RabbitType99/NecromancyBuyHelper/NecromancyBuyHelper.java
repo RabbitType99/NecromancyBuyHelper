@@ -55,9 +55,10 @@ public class NecromancyBuyHelper {
             if (Minecraft.getMinecraft().currentScreen instanceof GuiChest) {
                 ContainerChest chest = ((ContainerChest) Minecraft.getMinecraft().thePlayer.openContainer);
                 String chestName = chest.getLowerChestInventory().getDisplayName().getUnformattedText().trim();
-                if (chestName.contains("Auctions:")) {
+                if (chestName.startsWith("Auctions:")) {
                     for (Slot slot: ((GuiChest) event.gui).inventorySlots.inventorySlots ) {
                         if (slot.getStack() != null) {
+
                             if (Arrays.stream(checkForSouls(slot.getStack(),false)).anyMatch(val -> val)) {
                                 if (Arrays.stream(checkForSouls(slot.getStack(),false)).allMatch(val -> val)) {
                                     drawOnSlot(slot.xDisplayPosition, slot.yDisplayPosition, 0xE500b300);
@@ -73,14 +74,32 @@ public class NecromancyBuyHelper {
 
 
                 }
+                if (chestName.startsWith("You")){
+                    for (Slot slot: ((GuiChest) event.gui).inventorySlots.inventorySlots ) {
+                        if (slot.getStack() != null) {
+
+                            if (Arrays.stream(checkForSouls(slot.getStack(),false)).anyMatch(val -> val)) {
+                                if (Arrays.stream(checkForSouls(slot.getStack(),false)).allMatch(val -> val)) {
+                                    drawOnSlot(slot.xDisplayPosition, slot.yDisplayPosition+9, 0xE500b300);
+
+                                }
+                                else {
+                                    drawOnSlot(slot.xDisplayPosition, slot.yDisplayPosition+9,  0xE5e05a00);
+                                }
+
+                            }
+                        }
+                    }
+
+                }
             }
         }
     }
 
     public static void drawOnSlot(int x, int y, int color) {
         ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
-        int xInGui =(sr.getScaledWidth() - 176) / 2 +x;// (x + Minecraft.getMinecraft().displayHeight - 176) / 2;
-        int yInGui =(sr.getScaledHeight() - 222) / 2 +y;// (y + Minecraft.getMinecraft().displayWidth - 222) / 2;
+        int xInGui =(sr.getScaledWidth() - 176) / 2 +x;
+        int yInGui =(sr.getScaledHeight() - 222) / 2 +y;
         GL11.glTranslated(0, 0, 1);
         Gui.drawRect(xInGui, yInGui, xInGui + 16, yInGui + 16, color);
         GL11.glTranslated(0, 0, -1);
